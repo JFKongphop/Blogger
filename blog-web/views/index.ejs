@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Blogger</title>
+    <link rel="stylesheet" href="../public/css/mainStyle.css" >
+    <style>
+        body{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Kumbh Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .container{
+
+            margin: 50px 220px;
+        }
+
+        .flexbox{
+            width: 100%;
+            height: auto;
+            
+            /* flexbox */
+
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .item{
+            width: 25%;
+            height: 800px;
+            background: rgb(105, 105, 105);
+            margin: 50px 50px;
+            box-sizing: border-box;
+            font-size: 50px;
+            border-radius: 10px;
+        }
+
+        img{
+            width: 100%;
+            max-height: 350px;
+            /* height: 50%; */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .each-content{
+            /* margin-top: 30px; */
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: column;
+            margin-left: 20px;
+        }
+
+        /* responsive media */
+
+        @media screen and (max-width: 1600px){
+
+            .container{
+                margin: 30 20px;
+            }
+
+            .item{
+                margin: 20px 100px;
+                width: 25%;
+                height: 500px;
+                
+            }
+
+            img{
+                max-height: 250px;
+            }
+        }
+
+        @media screen and (max-width: 1200px){
+
+            .container{
+                margin: 30px 30px;
+            }
+
+            .item{
+                margin: 20px 10px;
+                width: 40%;
+                height: 500px;
+            }
+
+            img{
+                max-height: 250px;
+            }
+        }
+
+        @media screen and (max-width: 600px){
+            
+            .container{
+                margin: 0 15px;
+            }
+
+            .item{
+                margin: 20px 0;
+                width: 90%;
+                height: 500px;
+            }
+
+            img{
+                max-height: 250px;
+            }
+        }
+
+        
+
+
+    </style>
+</head>
+<body>
+    <%- include('navbar') %>
+    <div class="container"> 
+        <div class="flexbox">
+            <% Object.values(blogs).forEach((item)=>{%>
+                <div class="item">
+                    <div class="content">
+                        <a href="/<%= item._id %>"><img class="img" src="/images/titleImgs/<%= item.image %>" /></a>
+                        <div class="each-content">
+                            <div>
+                                <p><%= item.title %></p>
+                                <p><%= item.description %></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+    <%- include('footer') %>
+    
+
+
+    
+</body>
+</html>
