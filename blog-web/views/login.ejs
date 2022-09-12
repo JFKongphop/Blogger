@@ -5,8 +5,103 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Kumbh Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .form-console{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 0;
+        }
+
+        .form-control{
+            display: flex;
+            flex-direction: column;
+        }
+
+        label{
+            padding: 5px 0; 
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        input {
+            width: 500px;
+            height: 35px;
+            outline: none;
+        }
+
+        input[type="text"], input[type="password"]{
+            font-size:20px;
+        }
+
+        button{
+            margin-top: 6px;
+            width: 50px;
+            max-width: 100%;
+            border-radius: 3;
+            cursor: pointer;
+        }
+
+        button:active{
+            transform: scale(.98);
+        }
+
+        .update{
+            width: 80px;
+            margin-right: 15px;
+        }
+
+        .back{
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            text-decoration: none;
+            color: black;
+        }
+
+
+        @media screen and (max-width: 600px){
+            input {
+            width: 430px;
+            height: 35px;
+            outline: none;
+        }
+
+            input[type="text"], input[type="password"]{
+                font-size:17px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello</h1>
+    <%- include('navbar') %>
+    <form class="form-console" method="POST" action="/login" >
+        <div class="form-side">
+            
+            <div class="form-control">
+                <label>Username</label>
+                <input type="text" class="form-control" name="username">
+            </div>
+    
+            <div class="form-control">
+                <label>Password</label>
+                <input type="password" class="form-control" name="password">
+            </div>
+
+            <div>
+                <button type="submit" class="update back">Login</button>
+            </div>
+        </div>
+    
+    </form>
 </body>
 </html>

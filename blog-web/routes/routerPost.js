@@ -53,9 +53,77 @@ router.post('/insert', upload.single('image'), (req, res)=>{
 })
 
 // edit page
+router.post('/edit', (req, res)=>{
+
+    // get id of this blog when will edit
+    const edit_id = req.body.edit_id
+    console.log(edit_id);
+
+    // find one of the blog to change it
+    Blogger.findOne({_id : edit_id}).exec((err, doc)=>{
+        if (err) console.log(err);
+
+        res.render('edit', {blog : doc})
+    })
+})
+
+// update when clike in edit page
+router.post('/update', (req, res)=>{
+
+    // id that will update of blog
+    const update_id = req.body.update_id
+
+    // set same object not create new class
+    let data = {
+        title : req.body.title,
+        description : req.body.description,
+        content : req.body.content
+    }
+
+    // update of the same id and new data
+    Blogger.findByIdAndUpdate(update_id, data, {useFindAndModify : false}).exec(err=>{
+        if (err) console.log(err)
+
+        // and back to manage page
+        res.redirect('/manage')
+    })
+})
 
 
 // login page
+router.post('/login', (req, res)=>{
+
+    // set session to login
+    // get username and password from login
+    const username = req.body.username
+    const password = req.body.password
+
+    // set time to expire
+    const timeExpire = 30000
+
+    if(username === "admin" && password === "123"){
+
+        // send value to access the page
+        req.session.username = username
+        req.session.password = password
+        req.session.login = true
+        req.session.cookie.maxAge = timeExpire
+
+        // go to manage page when it true
+        res.redirect('/manage')
+    }
+ 
+    // not found cus not admin
+    else{
+        res.render('404')
+    }
+})
+
+router.get('/logout', (req, res)=>{
+    req.session.destroy((err)=>{
+        res.redirect('/admin')
+    })
+})
 
 
 

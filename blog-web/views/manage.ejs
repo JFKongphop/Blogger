@@ -76,7 +76,7 @@
 </head>
 <body>
         
-    <%- include('navbar') %>
+    <%- include('navbarafter') %>
     <div class="contain">
 
     
@@ -89,8 +89,14 @@
             <% Object.values(blogs).forEach((item)=>{ %>
                 <tr>
                     <td><%= item.title %></td>
-                    <td class="btn"><button class="edit">EDIT</button></td>
-                    <td class="btn"><button class="del">DELETE</button></td>
+                    <td class="btn">
+                        <form action="/edit" method="POST">
+                            <!-- send id to edit this blog -->
+                            <input type="hidden" name="edit_id" value="<%= item._id %>">
+                            <button type="submit" class="edit">EDIT</button>
+                        </form>
+                    </td>
+                    <td class="btn"><a href="/delete/<%= item._id %>"><button class="del">DELETE</button></a></td>
                 </tr>
             <% }) %>
         </table>

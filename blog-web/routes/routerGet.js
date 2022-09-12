@@ -18,16 +18,32 @@ router2.get('/', (req, res)=>{
 
 // admin page
 router2.get('/admin', (req, res)=>{
-    res.render('admin')
+
+    if(req.session.login){
+        res.render('admin')
+    }
+
+    else{
+        res.render('login')
+    }
+    
 })
 
 
 // manage page
 router2.get('/manage', (req, res)=>{
-    Blogger.find().exec((err, doc)=>{
-        res.render('manage', {blogs : doc})
-    })
-    
+
+    // when login it can go to manage
+    if(req.session.login){
+        Blogger.find().exec((err, doc)=>{
+            res.render('manage', {blogs : doc})
+        })
+    }
+
+    // if not login that go to login
+    else{
+        res.render('login')
+    }
 })
 
 // when close that manage can use
@@ -46,5 +62,22 @@ router2.get('/:id', (req, res)=>{
         res.render('blog', {blogs : doc})
     })
 })
+
+// delete button console
+router2.get('/delete/:id', (req, res)=>{
+
+    // show id that want to delete
+    console.log("delete id : ", req.params.id);
+
+    // find that id want to delete
+    Blogger.findByIdAndDelete(req.params.id, {useFindAndModify : false}).exec(err=>{
+        if (err) console.log(err);
+
+        // when deleted back to this page
+        res.redirect('/manage')
+    })
+})
+
+
 
 module.exports = router2

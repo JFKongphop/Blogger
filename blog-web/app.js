@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const routerPost = require('./routes/routerPost')
 const routerGet = require('./routes/routerGet')
-const PORT = 8081
+const PORT = 8080
 
 // set up ejs to show on website
 app.set('views', path.join(__dirname, 'views'));
